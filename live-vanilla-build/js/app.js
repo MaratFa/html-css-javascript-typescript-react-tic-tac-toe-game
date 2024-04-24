@@ -1,3 +1,5 @@
+import { View } from "./view.js";
+
 const App = {
   // All of our selected HTML elements
   $: {
@@ -109,11 +111,11 @@ const App = {
         if (currentPlayer === 1) {
           squareIcon.classList.add("fa-solid", "fa-x", "yellow");
           turnIcon.classList.add("fa-solid", "fa-o", "turquoise");
-          turnLabel.classList = 'turquoise';
+          turnLabel.classList = "turquoise";
         } else {
           squareIcon.classList.add("fa-solid", "fa-o", "turquoise");
           turnIcon.classList.add("fa-solid", "fa-x", "yellow");
-          turnLabel.classList = 'yellow';
+          turnLabel.classList = "yellow";
         }
 
         App.$.turn.replaceChildren(turnIcon, turnLabel);
@@ -146,3 +148,11 @@ const App = {
 };
 
 window.addEventListener("load", App.init);
+
+function init() {
+  const view = new View();
+
+  console.log(view.$.turn);
+}
+
+window.addEventListener("load", init);
