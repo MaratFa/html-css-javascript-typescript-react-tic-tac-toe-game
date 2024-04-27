@@ -54,12 +54,29 @@ export default class View {
     icon.classList.toggle("fa-chevron-up");
   }
 
-  #setTurnIndicator(player) {
+  handlePlayerMove(squareEl, player) {
+    const icon = document.createElement("i");
+    icon.classList.add(
+      "fa-solid",
+      player === 1 ? "fa-x" : "fa-o",
+      player === 1 ? "yellow" : "turquoise"
+    );
+    squareEl.replaceChildren(icon);
+  }
+
+  // player = 1 | 2
+  setTurnIndicator(player) {
     const icon = document.createElement("i");
     const label = document.createElement("p");
 
-    icon.classList.add(player === 1 ? "yellow" : "turquoise");
-    label.classList.add(player === 1 ? "yellow" : "turquoise");
+    this.$.turn.classList.add(player === 1 ? "yellow" : "turquoise");
+    this.$.turn.classList.remove(player === 1 ? "turquoise" : "yellow");
+
+    icon.classList.add("fa-solid", player === 1 ? "fa-x" : "fa-o");
+
+    label.innerText =
+      player === 1 ? "Player 1, you're up!" : "Player 2, you're up!";
+    this.$.turn.replaceChildren(icon, label);
   }
 
   #qs(selector, parent) {
