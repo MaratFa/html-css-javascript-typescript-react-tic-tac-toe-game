@@ -64,13 +64,12 @@ export default class View {
     squareEl.replaceChildren(icon);
   }
 
-  // player = 1 | 2
-  setTurnIndicator(player) {
+  setTurnIndicator(player, opponent) {
     const icon = document.createElement("i");
     const label = document.createElement("p");
 
-    this.$.turn.classList.add(player === 1 ? "yellow" : "turquoise");
-    this.$.turn.classList.remove(player === 1 ? "turquoise" : "yellow");
+    this.$.turn.classList.add(player.colorClass);
+    this.$.turn.classList.remove(opponent.colorClass);
 
     icon.classList.add("fa-solid", player === 1 ? "fa-x" : "fa-o");
 
