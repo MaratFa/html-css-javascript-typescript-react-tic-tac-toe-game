@@ -148,6 +148,21 @@ const App = {
   },
 };
 
+const players = [
+  {
+    id: 1,
+    name: "Player 1",
+    iconClass: "fa-x",
+    colorClass: "turquoise",
+  },
+  {
+    id: 2,
+    name: "Player 2",
+    iconClass: "fa-o",
+    colorClass: "yellow",
+  },
+];
+
 // window.addEventListener("load", App.init);
 
 function init() {
@@ -167,7 +182,7 @@ function init() {
   });
 
   view.bindPlayerMoveEvent((event) => {
-    view.setTurnIndicator(2);
+    view.setTurnIndicator(players[1]);
     view.handlePlayerMove(event.target, 1);
   });
 }
