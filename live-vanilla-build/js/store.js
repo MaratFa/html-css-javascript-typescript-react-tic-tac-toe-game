@@ -5,10 +5,14 @@ const initialValue = {
 export default class Store {
   #state = initialValue;
 
-  constructor() {}
+  constructor(players) {
+    this.players = players;
+  }
 
   get game() {
-    return "dummy value";
+    const state = this.#getState();
+
+    const currentPlayer = this.plaers[0];
   }
 
   #getState() {
