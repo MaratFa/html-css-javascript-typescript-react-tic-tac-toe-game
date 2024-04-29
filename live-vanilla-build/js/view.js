@@ -54,6 +54,16 @@ export default class View {
     this.$.modal.classList.add("hidden");
   }
 
+  clearModal() {
+    this.$.modal.classList.add("hidden");
+  }
+
+  clearMoves() {
+    this.$$.squares.forEach((square) => {
+      square.replaceChildren();
+    });
+  }
+
   toggleMenu() {
     this.$.menuItems.classList.toggle("hidden");
     this.$.menuBtn.classList.toggle("border");
