@@ -169,15 +169,15 @@ function init() {
   const view = new View();
   const store = new Store(players);
 
-  console.log(store.game);
-
   view.bindGameResetEvent((event) => {
-    view.closeModal();
+    view.closeAll();
 
     store.reset();
 
     view.clearMoves();
     view.setTurnIndicator(store.game.currentPlayer);
+
+    console.log(store.stats);
   });
 
   view.bindNewRoundEvent((event) => {
