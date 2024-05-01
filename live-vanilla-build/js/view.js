@@ -45,13 +45,17 @@ export default class View {
   /*
     DOM helper methods
   */
+
+    
+
   openModal(message) {
     this.$.modal.classList.remove("hidden");
     this.$.modalText.innerText = message;
   }
 
-  closeModal() {
-    this.$.modal.classList.add("hidden");
+  closeAll() {
+    this.#closeModal();
+    this.#closeMenu();
   }
 
   clearModal() {
@@ -62,6 +66,20 @@ export default class View {
     this.$$.squares.forEach((square) => {
       square.replaceChildren();
     });
+  }
+
+  #closeModal() {
+    this.$.modal.classList.add("hidden");
+  }
+
+  #closeMenu() {
+    this.$.menuItems.classList.add("hidden");
+    this.$.menuBtn.classList.remove("border");
+
+    const icon = this.$.menuBtn.querySelector("i");
+
+    icon.classList.add("fa-chevron-down");
+    icon.classList.remove("fa-chevron-up");
   }
 
   toggleMenu() {
