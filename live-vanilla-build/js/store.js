@@ -72,7 +72,7 @@ export default class Store {
     };
   }
 
-  plaerMove(squareId) {
+  playerMove(squareId) {
     const state = structuredClone(this.#getState());
 
     const stateClone = structuredClone(state);
@@ -114,6 +114,7 @@ export default class Store {
 
   #getState() {
     const item = window.localStorage.getItem(this.storageKey);
+    return item ? JSON.parse(item) : initialValue;
   }
 
   #saveState(stateOrFn) {
@@ -132,6 +133,6 @@ export default class Store {
         throw new Error("Invalid argument passed to saveState");
     }
 
-    this.#state = newState;
+    window.localStorage.setItem(this.storageKey, JSON.stringify(newState));
   }
 }
