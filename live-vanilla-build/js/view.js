@@ -27,10 +27,16 @@ export default class View {
   }
 
   render(game, stats) {
-
+    const { playerWithStats, ties } = stats;
     const {}
 
-    this.#updateScoreboard()
+
+
+
+
+    
+
+    this.#updateScoreboard();
   }
 
   /*
@@ -91,7 +97,6 @@ export default class View {
   clearModal() {
     this.$.modal.classList.add("hidden");
   }
-
 
   #closeModal() {
     this.$.modal.classList.add("hidden");
