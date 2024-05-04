@@ -20,34 +20,33 @@ function init() {
   const view = new View();
   const store = new Store("live-t3-storage-key", players);
 
+  // function initView() {
+  //   view.closeAll();
+  //   view.clearMoves();
+  //   view.setTurnIndicator(store.game.currentPlayer);
+  //   view.updateScoreboard(
+  //     store.stats.playerWithStats[0].wins,
+  //     store.stats.playerWithStats[1].wins,
+  //     store.stats.ties
+  //   );
+  //   view.initializeMoves(store.game.moves);
+  // }
 
-
-  function initView() {
-    view.closeAll();
-    view.clearMoves();
-    view.setTurnIndicator(store.game.currentPlayer);
-    view.updateScoreboard(
-      store.stats.playerWithStats[0].wins,
-      store.stats.playerWithStats[1].wins,
-      store.stats.ties
-    );
-    view.initializeMoves(store.game.moves);
-  }
-
-  window.addEventListener('storage', () => {
+  window.addEventListener("storage", () => {
     console.log("State changed from another tab");
-  })
+    view.render(store.game, store.stats);
+  });
 
-  initView();
+  view.render(store.game, store.stats);
 
   view.bindGameResetEvent((event) => {
     store.reset();
-    initView();
+    view.render(store.game, store.stats);
   });
 
   view.bindNewRoundEvent((event) => {
     store.newRound();
-    initView();
+    view.render(store.game, store.stats);
   });
 
   view.bindPlayerMoveEvent((square) => {
