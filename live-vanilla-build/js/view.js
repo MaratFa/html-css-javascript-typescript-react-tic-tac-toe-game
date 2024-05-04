@@ -1,4 +1,4 @@
-export default class View {
+export default class View extends EventTarget {
   $ = {};
   $$ = {};
 
@@ -36,13 +36,18 @@ export default class View {
 
     this.#closeAll();
     this.#clearMoves();
-    this.#setTurnIndicator(currentPlayer);
     this.#updateScoreboard(
       playerWithStats[0].wins,
       playerWithStats[1].wins,
       ties
     );
     this.#initializeMoves(moves);
+
+    if (isComplete) {
+      this.#openModal(winner ? `${winner.name} wins!` : "Tie!");
+      return;
+    }
+    this.#setTurnIndicator(currentPlayer);
   }
 
   /*
