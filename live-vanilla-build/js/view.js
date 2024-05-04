@@ -65,10 +65,7 @@ export default class View {
   }
 
   bindPlayerMoveEvent(handler) {
-    this.#delegate(this.$.grid);
-    // this.$$.squares.forEach((square) => {
-    //   square.addEventListener("click", () => handler(square));
-    // });
+    this.#delegate(this.$.grid, '[data-id="square"]', "click", handler);
   }
 
   /*
