@@ -1,4 +1,4 @@
-export default class View extends EventTarget {
+export default class View {
   $ = {};
   $$ = {};
 
@@ -16,6 +16,7 @@ export default class View extends EventTarget {
     this.$.p1Wins = this.#qs('[data-id="p1-wins"]');
     this.$.p2Wins = this.#qs('[data-id="p2-wins"]');
     this.$.ties = this.#qs('[data-id="ties"]');
+    this.$.grid = this.#qs('[data-id="grid"]');
 
     // Elements lists
     this.$$.squares = this.#qsAll('[data-id="square"');
@@ -64,15 +65,15 @@ export default class View extends EventTarget {
   }
 
   bindPlayerMoveEvent(handler) {
-    this.$$.squares.forEach((square) => {
-      square.addEventListener("click", () => handler(square));
-    });
+    this.#delegate(this.$.grid);
+    // this.$$.squares.forEach((square) => {
+    //   square.addEventListener("click", () => handler(square));
+    // });
   }
 
   /*
     DOM helper methods
   */
-
   #updateScoreboard(p1Wins, p2Wins, ties) {
     this.$.p1Wins.innerText = `${p1Wins} wins`;
     this.$.p2Wins.innerText = `${p2Wins} wins`;
@@ -167,5 +168,13 @@ export default class View extends EventTarget {
     if (!elList) throw new Error("Could not find elements");
 
     return elList;
+  }
+
+  #delegate(el, selector, eventKey, handler) {
+    el.addEventListener(eventKey, (event) => {
+      if (event.target.matches(selector)) {
+        handler(event.target);
+      }
+    });
   }
 }
