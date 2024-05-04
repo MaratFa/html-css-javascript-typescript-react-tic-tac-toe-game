@@ -28,15 +28,21 @@ export default class View {
 
   render(game, stats) {
     const { playerWithStats, ties } = stats;
-    const {}
+    const {
+      moves,
+      currentPlayer,
+      status: { isComplete, winner },
+    } = game;
 
-
-
-
-
-    
-
-    this.#updateScoreboard();
+    this.#closeAll();
+    this.#clearMoves();
+    this.#setTurnIndicator(currentPlayer);
+    this.#updateScoreboard(
+      playerWithStats[0].wins,
+      playerWithStats[1].wins,
+      ties
+    );
+    this.#initializeMoves(moves);
   }
 
   /*
