@@ -8,7 +8,6 @@ export default class View {
     this.$.menuItems = this.#qs('[data-id="menu-items"]');
     this.$.resetBtn = this.#qs('[data-id="reset-btn"]');
     this.$.newRoundBtn = this.#qs('[data-id="new-round-btn"]');
-    this.$.squares = this.#qsAll('[data-id="square"]');
     this.$.modal = this.#qs('[data-id="modal"]');
     this.$.modalText = this.#qs('[data-id="modal-text"]');
     this.$.modalBtn = this.#qs('[data-id="modal-btn"]');
@@ -22,7 +21,7 @@ export default class View {
     this.$$.squares = this.#qsAll('[data-id="square"');
 
     // UI-only event listeners
-    this.$.menu.addEventListener("click", (event) => {
+    this.$.menuBtn.addEventListener("click", (event) => {
       this.#toggleMenu();
     });
   }
