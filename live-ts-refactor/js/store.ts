@@ -1,6 +1,6 @@
 import type { Player, GameState } from "./types";
 
-const initialState = {
+const initialState: GameState = {
   currentGameMoves: [], // All the player moves for the active game
   history: {
     currentRoundGames: [],
@@ -106,7 +106,7 @@ export default class Store extends EventTarget {
     };
   }
 
-  playerMove(squareId) {
+  playerMove(squareId: number) {
     /**
      * Never mutate state directly.  Create copy of state, edit the copy,
      * and save copy as new version of state.
@@ -153,7 +153,7 @@ export default class Store extends EventTarget {
   newRound() {
     this.reset();
 
-    const stateClone = structuredClone(this.#getState());
+    const stateClone = structuredClone(this.#getState()) as GameState;
     stateClone.history.allGames.push(...stateClone.history.currentRoundGames);
     stateClone.history.currentRoundGames = [];
 
