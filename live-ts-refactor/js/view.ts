@@ -171,7 +171,7 @@ export default class View {
    * The #qs and #qsAll methods are "safe selectors", meaning they
    * _guarantee_ the elements we select exist in the DOM (otherwise throw an error)
    */
-  #qs(selector, parent) {
+  #qs(selector: string, parent) {
     const el = parent
       ? parent.querySelector(selector)
       : document.querySelector(selector);
