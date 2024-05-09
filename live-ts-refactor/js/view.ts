@@ -1,6 +1,9 @@
 // This import is only for jsdoc typings and intellisense
 import Store from "./store.js";
 
+type ElementObjectDictionary = {
+  [key in string]: Element;
+};
 export default class View {
   $: Record<string, Element> = {};
   $$: Record<string, NodeListOf<Element>> = {};
