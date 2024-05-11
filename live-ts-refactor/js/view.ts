@@ -1,9 +1,5 @@
-// This import is only for jsdoc typings and intellisense
-import Store from "./store.js";
+import type { Game } from "./types";
 
-type ElementObjectDictionary = {
-  [key in string]: Element;
-};
 export default class View {
   $: Record<string, Element> = {};
   $$: Record<string, NodeListOf<Element>> = {};
@@ -48,7 +44,7 @@ export default class View {
    *
    * @see https://www.zachgollwitzer.com/posts/imperative-programming#react-declarative-vs-jquery-imperative
    */
-  render(game, stats) {
+  render(game: Game, stats) {
     const { playerWithStats, ties } = stats;
     const {
       moves,
