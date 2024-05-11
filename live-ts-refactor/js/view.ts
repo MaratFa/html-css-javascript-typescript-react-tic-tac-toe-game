@@ -1,4 +1,5 @@
 import type { Game } from "./types";
+import type Store from "./store";
 
 export default class View {
   $: Record<string, Element> = {};
@@ -44,7 +45,7 @@ export default class View {
    *
    * @see https://www.zachgollwitzer.com/posts/imperative-programming#react-declarative-vs-jquery-imperative
    */
-  render(game: Game, stats) {
+  render(game: Store["game"], stats: Store["stats"]) {
     const { playerWithStats, ties } = stats;
     const {
       moves,
@@ -74,16 +75,16 @@ export default class View {
    * ----------------------------------------------------------
    */
 
-  bindGameResetEvent(handler) {
+  bindGameResetEvent(handler: EventListener) {
     this.$.resetBtn.addEventListener("click", handler);
     this.$.modalBtn.addEventListener("click", handler);
   }
 
-  bindNewRoundEvent(handler) {
+  bindNewRoundEvent(handler: EventListener) {
     this.$.newRoundBtn.addEventListener("click", handler);
   }
 
-  bindPlayerMoveEvent(handler) {
+  bindPlayerMoveEvent(handler: EventListener) {
     this.#delegate(this.$.grid, '[data-id="square"]', "click", handler);
   }
 
