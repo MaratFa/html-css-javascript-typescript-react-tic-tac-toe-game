@@ -1,3 +1,4 @@
+import type { Player } from "./types";
 import Store from "./store.js";
 import View from "./view.js";
 
