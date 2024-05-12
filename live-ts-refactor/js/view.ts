@@ -1,4 +1,4 @@
-import type { Game } from "./types";
+import type { Move, Player } from "./types";
 import type Store from "./store";
 
 export default class View {
@@ -93,15 +93,15 @@ export default class View {
    * -----------------------------------------------------------------------------
    */
 
-  #updateScoreboard(p1Wins, p2Wins, ties) {
-    this.$.p1Wins.innerText = `${p1Wins} wins`;
-    this.$.p2Wins.innerText = `${p2Wins} wins`;
-    this.$.ties.innerText = `${ties} ties`;
+  #updateScoreboard(p1Wins: number, p2Wins: number, ties: number) {
+    this.$.p1Wins.textContent = `${p1Wins} wins`;
+    this.$.p2Wins.textContent = `${p2Wins} wins`;
+    this.$.ties.textContent = `${ties} ties`;
   }
 
-  #openModal(message) {
+  #openModal(message: string) {
     this.$.modal.classList.remove("hidden");
-    this.$.modalText.innerText = message;
+    this.$.modalText.textContent = message;
   }
 
   #closeAll() {
@@ -115,7 +115,7 @@ export default class View {
     });
   }
 
-  #initializeMoves(moves) {
+  #initializeMoves(moves: Move[]) {
     this.$$.squares.forEach((square) => {
       const existingMove = moves.find((move) => move.squareId === +square.id);
 
@@ -133,7 +133,7 @@ export default class View {
     this.$.menuItems.classList.add("hidden");
     this.$.menuBtn.classList.remove("border");
 
-    const icon = this.$.menuBtn.querySelector("i");
+    const icon = this.#qs("i", this.$.menu);
 
     icon.classList.add("fa-chevron-down");
     icon.classList.remove("fa-chevron-up");
@@ -143,19 +143,19 @@ export default class View {
     this.$.menuItems.classList.toggle("hidden");
     this.$.menuBtn.classList.toggle("border");
 
-    const icon = this.$.menuBtn.querySelector("i");
+    const icon = this.#qs("i", this.$.menuBtn);
 
     icon.classList.toggle("fa-chevron-down");
     icon.classList.toggle("fa-chevron-up");
   }
 
-  #handlePlayerMove(squareEl, player) {
+  #handlePlayerMove(squareEl: Element, player: Player) {
     const icon = document.createElement("i");
     icon.classList.add("fa-solid", player.iconClass, player.colorClass);
     squareEl.replaceChildren(icon);
   }
 
-  #setTurnIndicator(player) {
+  #setTurnIndicator(player: Player) {
     const icon = document.createElement("i");
     const label = document.createElement("p");
 
@@ -198,9 +198,19 @@ export default class View {
    * @param {*} eventKey the event type you are listening for (e.g. "click" event)
    * @param {*} handler the callback function that is executed when the specified event is triggered on the specified children
    */
-  #delegate(el, selector, eventKey, handler) {
+  #delegate(
+    el: Element,
+    selector: string,
+    eventKey: string,
+    handler: (el: Element) => void
+  ) {
     el.addEventListener(eventKey, (event) => {
-      if (event.target.matches(selector)) {
+
+      if (!(event.target instanceof Element)) {
+        throw new Error('Event target not found')        
+      }
+
+      if (event.target?.matches(selector)) {
         handler(event.target);
       }
     });
