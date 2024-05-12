@@ -205,12 +205,11 @@ export default class View {
     handler: (el: Element) => void
   ) {
     el.addEventListener(eventKey, (event) => {
-
       if (!(event.target instanceof Element)) {
-        throw new Error('Event target not found')        
+        throw new Error("Event target not found");
       }
 
-      if (event.target?.matches(selector)) {
+      if (event.target.matches(selector)) {
         handler(event.target);
       }
     });
