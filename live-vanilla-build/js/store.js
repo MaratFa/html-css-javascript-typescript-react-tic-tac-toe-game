@@ -6,7 +6,7 @@ const initialValue = {
   },
 };
 
-export default class Store extends EventTarget {
+export default class Store extends EventTarget {  
   constructor(key, players) {
     super();
     this.storageKey = key;
