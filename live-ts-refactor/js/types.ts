@@ -12,17 +12,17 @@ export type Move = {
   player: Player;
 };
 
-type GameStatus = {
+export type GameStatus = {
   isComplete: boolean;
   winner: Player;
 };
 
-type Game = {
+export type Game = {
   moves: Move[];
   status: GameStatus;
 };
 
-type GameState = {
+export type GameState = {
   currentGameMoves: any[];
   history: {
     currentRoundGames: Game[];
