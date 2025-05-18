@@ -1,9 +1,8 @@
-// This import is only for jsdoc typings and intellisense
-import Store from "./store.js";
+import type { Game } from "./types.js";
 
 export default class View {
-  $ = {};
-  $$ = {};
+  $: Record<string, Element> = {};
+  $$: Record<string, NodeListOf<Element>> = {};
 
   constructor() {
     /**
@@ -45,7 +44,7 @@ export default class View {
    *
    * @see https://www.zachgollwitzer.com/posts/imperative-programming#react-declarative-vs-jquery-imperative
    */
-  render(game, stats) {
+  render(game: Store['game'], stats: Store['stats']) {
     const { playerWithStats, ties } = stats;
     const {
       moves,
@@ -171,7 +170,7 @@ export default class View {
    * The #qs and #qsAll methods are "safe selectors", meaning they
    * _guarantee_ the elements we select exist in the DOM (otherwise throw an error)
    */
-  #qs(selector, parent) {
+  #qs(selector: string, parent?: Element) {
     const el = parent
       ? parent.querySelector(selector)
       : document.querySelector(selector);
@@ -181,7 +180,7 @@ export default class View {
     return el;
   }
 
-  #qsAll(selector) {
+  #qsAll(selector: string) {
     const elList = document.querySelectorAll(selector);
 
     if (!elList) throw new Error("Could not find elements");
