@@ -1,8 +1,6 @@
-import { Player } from "./types";
+import type { Player, GameState } from "./types";
 
-import 
-
-const initialState = {
+const initialState: GameState = {
   currentGameMoves: [], // All the player moves for the active game
   history: {
     currentRoundGames: [],
@@ -22,12 +20,12 @@ const initialState = {
  * state changes, which the controller can listen for to know when to re-render the view.
  */
 export default class Store extends EventTarget {
-
-  constructor(private readonly storageKey: string, private readonly players: Player[]) {
+  constructor(
+    private readonly storageKey: string,
+    private readonly players: Player[]
+  ) {
     // Since we're extending EventTarget, need to call super() so we have access to instance methods
     super();
-
- 
   }
 
   /** stats() and game() are Convenience "getters"
@@ -155,7 +153,7 @@ export default class Store extends EventTarget {
   newRound() {
     this.reset();
 
-    const stateClone = structuredClone(this.#getState());
+    const stateClone = structuredClone(this.#getState()) as GameState;
     stateClone.history.allGames.push(...stateClone.history.currentRoundGames);
     stateClone.history.currentRoundGames = [];
 
@@ -172,7 +170,7 @@ export default class Store extends EventTarget {
    * We are not using Redux here, but it gives a good overview of some essential concepts to managing state:
    * @see https://redux.js.org/understanding/thinking-in-redux/three-principles#changes-are-made-with-pure-functions
    */
-  #saveState(stateOrFn) {
+  #saveState(stateOrFn: GameState | ((prevState: GameState) => GameState)) {
     const prevState = this.#getState();
 
     let newState;
@@ -194,6 +192,6 @@ export default class Store extends EventTarget {
 
   #getState() {
     const item = window.localStorage.getItem(this.storageKey);
-    return item ? JSON.parse(item) : initialState;
+    return item ? JSON.parse(item) as GameState : initialState;
   }
 }
